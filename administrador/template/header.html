@@ -2,7 +2,7 @@
 
 session_start();
 if(!isset($_SESSION['usuario'])){
-    header('Location:../index.html');
+    
 }else{
     if($_SESSION['usuario']=="ok"){
         $nombreUsuario=$_SESSION["nombreUsuario"];
@@ -37,8 +37,14 @@ if(!isset($_SESSION['usuario'])){
     <nav class="nav bg-gray-black text-dark" style="background-color: rgb(240,240,240);">
         <div class="nav p-3 ms-4">
             <a class="navbar-brand" href="../administrador/inicio.html">Inicio</a>
-            <a class="navbar-brand" href="../administrador/productos.html">Productos</a>
-            <a class="navbar-brand" href="../administrador/cerrar.html">Cerrar</a>
+            <a class="navbar-brand" href="../administrador/section/productos.html">Productos</a>
+            <a class="navbar-brand" href="../administrador/section/cerrar.html">Cerrar</a>
             <a class="navbar-brand" href="#">Chiste</a>
         </div>
     </nav>
+
+    <div class="container">
+        <br>
+        <div class="row">
+
+    
