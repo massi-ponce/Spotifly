@@ -1,15 +1,26 @@
 <?php
-session_start();
-if($_POST){
-    if(($_POST['usuario']=="develoteca")&&($_POST['contrasenia']=="sistema")){
-        $_SESSION['usuario'] == "ok";
-        $_SESSION['nombreUsuario'] == "develoteca";
+    require '../db_config.php';
+    session_start();
+    $usuario = $_POST['usuario'];
+    $clave = $_POST['contrasenia'];
+
+    $query= "SELECT * FROM ARTISTAS WHERE nombre_artistico = '$usuario' AND password = '$clave' "; 
+    $query2= "SELECT * FROM USUARIOS WHERE nombre = '$usuario' AND password = '$clave' "; 
+
+    $consulta = pg_query($dbconn,$query);
+    $consulta2 = pg_query($dbconn,$query2);
+    $cantidad = pg_num_rows($consulta);
+    $cantidad2 = pg_num_rows($consulta2);
+
+    if($cantidad > 0){
+        $_SESSION['nombre_usuario'] = $usuario;
+        header('Location:inicio.html');
+    }else if ($cantidad2 > 0 ){
+        $_SESSION['nombre_usuario'] = $usuario;
         header('Location:inicio.html');
     }else{
         $mensaje="Error: El usuario o contraseña son incorrectos";
     }
-
-}
 ?>
 
 <!DOCTYPE html>

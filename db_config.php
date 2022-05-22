@@ -12,4 +12,5 @@ echo '<div class="alert alert-danger"><strong>Error:</strong> No se ha podido co
 /* Para incluir la configuración de este archivo en otro archivo .php utilice 
 <?php include $_SERVER['DOCUMENT_ROOT'].'/db_config.php'; ?>
 */
+
 ?>
