@@ -6,7 +6,8 @@
         $apellido = $_POST['apellido'];
         $email = $_POST['email'];
         $clave = $_POST['contrasenia'];
-        $query= "INSERT INTO USUARIOS VALUES(2,'$nombre','$apellido', '$email', '$clave',2, FALSE)";
+        $query= "INSERT INTO USUARIOS (nombre,apellido,email,password,suscripcion_activa)
+        VALUES('$nombre','$apellido', '$email', '$clave', FALSE)";
         $insert = pg_query($dbconn,$query);
         header('Location:index.html');   
     }
