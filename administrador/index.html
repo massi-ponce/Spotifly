@@ -1,26 +1,29 @@
 <?php
     require '../db_config.php';
     session_start();
-    $usuario = $_POST['usuario'];
+    $email = $_POST['email'];
     $clave = $_POST['contrasenia'];
 
-    $query= "SELECT * FROM ARTISTAS WHERE nombre_artistico = '$usuario' AND password = '$clave' "; 
-    $query2= "SELECT * FROM USUARIOS WHERE nombre = '$usuario' AND password = '$clave' "; 
+    $query= "SELECT * FROM ARTISTAS WHERE email = '$email' AND password = '$clave' "; 
+    $query2= "SELECT * FROM USUARIOS WHERE email = '$email' AND password = '$clave' "; 
 
     $consulta = pg_query($dbconn,$query);
     $consulta2 = pg_query($dbconn,$query2);
     $cantidad = pg_num_rows($consulta);
     $cantidad2 = pg_num_rows($consulta2);
+    if($_POST){
+        if($cantidad > 0){
+            $_SESSION['nombre_usuario'] = $usuario;
+            header('Location:inicio.html');
+        }else if ($cantidad2 > 0 ){
+            $_SESSION['nombre_usuario'] = $usuario;
+            header('Location:inicio.html');
+        }else{
+            $mensaje="Error: El usuario o contraseña son incorrectos";
+        }
 
-    if($cantidad > 0){
-        $_SESSION['nombre_usuario'] = $usuario;
-        header('Location:inicio.html');
-    }else if ($cantidad2 > 0 ){
-        $_SESSION['nombre_usuario'] = $usuario;
-        header('Location:inicio.html');
-    }else{
-        $mensaje="Error: El usuario o contraseña son incorrectos";
     }
+    
 ?>
 
 <!DOCTYPE html>
@@ -64,8 +67,8 @@
                         <?php } ?>
                         <form method="POST">
                             <div class="mb-3">
-                                <label class="form-label">Usuario</label>
-                                <input type="text" class="form-control" name="usuario" placeholder="Nombre de Usuario">
+                                <label class="form-label">Email</label>
+                                <input type="text" class="form-control" name="email" placeholder="Email">
 
                             </div>
                             <div class="mb-3">

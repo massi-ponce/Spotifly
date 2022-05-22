@@ -1,0 +1,44 @@
+<?php
+    require '../db_config.php';
+
+    if(isset($_POST['submit'])) {
+        $nombre = $_POST['nombre'];
+        $apellido = $_POST['apellido'];
+        $email = $_POST['email'];
+        $clave = $_POST['contrasenia'];
+        $query= "INSERT INTO USUARIOS VALUES(2,'$nombre','$apellido', '$email', '$clave',2, FALSE)";
+        $insert = pg_query($dbconn,$query);
+        header('Location:index.html');   
+    }
+    
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Signup</title>
+    <link rel="stylesheet" href="../style/signup.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <div class="background">
+            <div class="text">
+                <h1>Signup</h1>
+                <p>Have Account? <a href="../administrador/index.html">Login</a></p>
+            </div>
+            <div class="box">
+                <form class="form" method="POST">
+                    <input type="text" class="name" placeholder="Name" name="nombre" value="<?php echo $nombre;?>" required>
+                    <input type="text" class="last name" placeholder="Last name" name="apellido" value="<?php echo $apellido;?>" required>
+                    <input type="text" class="email" placeholder="someone@abc.com" name="email" value="<?php echo $email;?>" required>
+                    <input type="password" class="password" placeholder="Password" name="contrasenia" value="<?php echo $clave;?>" required>
+                    <input type="submit" class="button" name="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
