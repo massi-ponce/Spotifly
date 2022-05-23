@@ -1,25 +1,26 @@
 <?php
     require '../db_config.php';
+
     session_start();
     $email = $_POST['email'];
-    $clave = $_POST['contrasenia'];
+    $password = $_POST['password'];
 
-    $query= "SELECT * FROM ARTISTAS WHERE email = '$email' AND password = '$clave' "; 
-    $query2= "SELECT * FROM USUARIOS WHERE email = '$email' AND password = '$clave' "; 
+    $query= "SELECT * FROM ARTISTAS WHERE email = '$email' AND password = '$password' "; 
+    $query2= "SELECT * FROM USUARIOS WHERE email = '$email' AND password = '$password' "; 
 
-    $consulta = pg_query($dbconn,$query);
-    $consulta2 = pg_query($dbconn,$query2);
+    $consulta = pg_query($dbconn, $query);
+    $consulta2 = pg_query($dbconn, $query2);
     $cantidad = pg_num_rows($consulta);
     $cantidad2 = pg_num_rows($consulta2);
     if($_POST){
         if($cantidad > 0){
             $_SESSION['nombre_usuario'] = $usuario;
-            header('Location:inicio.html');
+            header('location:inicio.html');
         }else if ($cantidad2 > 0 ){
             $_SESSION['nombre_usuario'] = $usuario;
-            header('Location:inicio.html');
+            header('location:inicio.html');
         }else{
-            $mensaje="Error: El usuario o contraseña son incorrectos";
+            $mensaje="Error: El usuario o la contraseña son incorrectos.";
         }
 
     }
@@ -42,7 +43,7 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 
-    <title>Administrador del Sitio Web</title>
+    <title>Iniciar sesión</title>
 </head>
 
 <body>
@@ -57,7 +58,7 @@
                 <br /><br /><br /><br /><br />
                 <div class="card">
                     <div class="card-header">
-                        Login
+                        Iniciar sesión
                     </div>
                     <div class="card-body">
                         <?php if(isset($mensaje)) {?>
@@ -73,10 +74,10 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Contraseña</label>
-                                <input type="password" class="form-control" name="contrasenia" placeholder="Contraseña">
+                                <input type="password" class="form-control" name="password" placeholder="Contraseña">
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Entrar</button>
                         </form>
                     </div>
                 </div>
