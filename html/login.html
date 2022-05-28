@@ -15,10 +15,10 @@
     if($_POST){
         if($cantidad > 0){
             $_SESSION['nombre_usuario'] = $usuario;
-            header('location:inicio.html');
+            header('location:inicio_artista.html');
         }else if ($cantidad2 > 0 ){
             $_SESSION['nombre_usuario'] = $usuario;
-            header('location:inicio.html');
+            header('location:inicio_usuario.html');
         }else{
             $mensaje="Error: El usuario o la contraseña son incorrectos.";
         }
