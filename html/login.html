@@ -1,31 +1,4 @@
-<?php
-    require '../db_config.php';
 
-    session_start();
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    $query= "SELECT * FROM ARTISTAS WHERE email = '$email' AND password = '$password' "; 
-    $query2= "SELECT * FROM USUARIOS WHERE email = '$email' AND password = '$password' "; 
-
-    $consulta = pg_query($dbconn, $query);
-    $consulta2 = pg_query($dbconn, $query2);
-    $cantidad = pg_num_rows($consulta);
-    $cantidad2 = pg_num_rows($consulta2);
-    if($_POST){
-        if($cantidad > 0){
-            $_SESSION['nombre_usuario'] = $usuario;
-            header('location:inicio_artista.html');
-        }else if ($cantidad2 > 0 ){
-            $_SESSION['nombre_usuario'] = $usuario;
-            header('location:inicio_usuario.html');
-        }else{
-            $mensaje="Error: El usuario o la contraseña son incorrectos.";
-        }
-
-    }
-    
-?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -66,7 +39,7 @@
                             <?php echo $mensaje; ?>
                         </div>
                         <?php } ?>
-                        <form method="POST">
+                        <form method="POST" action= "sesion.php">
                             <div class="mb-3">
                                 <label class="form-label">Email</label>
                                 <input type="text" class="form-control" name="email" placeholder="Email">
@@ -77,7 +50,7 @@
                                 <input type="password" class="form-control" name="password" placeholder="Contraseña">
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Entrar</button>
+                            <button type="submit" class="btn btn-primary" name="btnlogin">Entrar</button>
                         </form>
                     </div>
                 </div>
