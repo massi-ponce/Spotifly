@@ -1,0 +1,105 @@
+* {
+    box-sizing: border-box;
+    margin: 0; 
+    padding: 0;
+}
+
+body{
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+}  
+
+.bloque {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    
+}
+.header {
+    background-image: url('../img/fondo.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.logo {
+    color: #c1c1c1; 
+    margin-top: 10px;
+    width: 30%;
+    float: left;
+}
+
+.menu-principal {
+    width: 40%;
+    float: right;
+    border: 0px solid #fff;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 7px;
+}
+
+.menu-principal ul{
+
+}
+
+.menu-principal ul li{
+    list-style: none;
+    display: inline-block;
+    padding: 15px 20px;
+
+}
+
+.menu-principal ul li a{
+    color:#fff;
+    text-decoration: none;
+
+}
+
+.centrar {
+    width: 80%;
+    height: auto;
+    overflow: hidden;
+    margin: auto;
+    text-align: center;
+    padding: 40px 0px;
+}
+
+.izquierda, .derecha {
+    width: 48%;
+    height: auto;
+    overflow: hidden;
+    border: 0px solid #ffffff;
+    display: inline-block;
+    padding-bottom: 40px;
+
+}
+
+.izquierda{
+    margin-top: 50px;
+    float: left;
+    text-align: center;
+    background-color: #000000;
+    border-radius: 15px;
+}
+.subtitulo {
+    color: #c1c1c1;
+}
+
+.titulo{
+    color: #fff;
+    font-size: 60px;
+}
+
+.descripcion{
+    color: #c1c1c1;
+    font-weight: 300;
+}
+
+.derecha { 
+    float: right;
+}
+
+.img-pres{
+    width: 95%;
+    border-radius: 10px;
+}
