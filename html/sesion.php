@@ -42,17 +42,24 @@
         $cantidad = pg_num_rows($consulta);
         $cantidad2 = pg_num_rows($consulta2);
 
-        $buscar_pass = pg_fetch_array($consulta);
-        $buscar_pass2 = pg_fetch_array($consulta2);
+        $array = pg_fetch_array($consulta);
+        $array2 = pg_fetch_array($consulta2);
 
 
-        if(($cantidad > 0) && (password_verify($password, $buscar_pass['password']))){
+        if(($cantidad > 0) && (password_verify($password, $array['password']))){
             session_start();
             $_SESSION["email"] = $email;
+            $_SESSION["nombre"] = $array['nombre'];
+            $_SESSION["nombre_artistico"] = $array['nombre_artistico'];
+            $_SESSION["apellido"] = $array['apellido'];
+            $_SESSION["verificado"] = $array['verificado'];
             header('location:inicio_artista.html');
-        }else if ( ($cantidad2 > 0 ) && (password_verify($password, $buscar_pass2['password']))) {
+        }else if ( ($cantidad2 > 0 ) && (password_verify($password, $array2['password']))) {
             session_start();
             $_SESSION["email"] = $email;
+            $_SESSION["suscripcion_activa"] = $array2['suscripcion_activa'];
+            $_SESSION["nombre"] = $array2['nombre'];
+            $_SESSION["apellido"] = $array2['apellido'];
             header('location:inicio_usuario.html');
         }else{
             echo "<script>alert('Error: El usuario o la contraseña son incorrectos.');window.location='login.html'</script>";

@@ -1,10 +1,45 @@
 <?php
     require_once("validar.php");
 ?>
-
-<?php include('template/header.html');?>
 <?php include 'db_config.php'; ?>
 
-    <h2>BIENVENIDO</h2>
+<?php include('../include/header.html');?>
 
-<?php include('template/footer.html');?>
+<body>
+    <header class="bloque header">
+        <div class="centrar">
+            <div class="logo">
+                <h1>SPOTIFLY</h1>
+            </div>
+            <nav class="menu-principal">
+                <ul>
+                    <li><a href="inicio_usuario.html">INICIO</a></li>
+                    <li><a href="../html/section/tabla_canciones.php">Canciones</a></li>
+                    <li><a href="../html/section/perfil_usuario.html">Perfil</a></li>
+                    <li><a href="../html/section/cerrar.html">Cerrar Sesion</a></li>
+                </ul>
+            </nav>
+        </div>
+
+<div class="izquierda"> 
+    <h4 class="subtitulo">Bienvenidos a nuestro Sitio Web</h4>
+    <h1 class="titulo">SPOTIFLY WEB SERVICES </h1>
+    <br>
+    <p class="descripcion">
+        Nuestro objetivo es ofrecer el catálogo de música más completa que podemos y con la mejor calidad. Creemos que debe
+        ser la experiencia de usuario la que marque la diferencia y en ese sentido trabajamos para que esta sea lo más fácil
+        y práctica posible. Ademas si eres un artista puedes agregar tus propias canciones para que otros usuarios. 
+    </p>
+</div>
+
+<div class="derecha">
+    <img src="../img/music.jpg" class="img-pres"> 
+</div> 
+
+</header>
+
+
+
+</body>
+
+</html>

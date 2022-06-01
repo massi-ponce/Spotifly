@@ -2,7 +2,7 @@
     require_once("../validar.php");
 ?>
 
-<?php include('../template/header.html');?>
+<?php include('../template/navbar_usuario.html');?>
 
 <?php
     if(isset($_GET["nombre_cancion"]) && isset($_GET["nombre_artista"]) && isset($_GET["fecha_composicion"]) && isset($_GET["album"]) && isset($_GET["letra"]))

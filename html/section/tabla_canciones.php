@@ -1,7 +1,7 @@
 <?php
     require_once("../validar.php");
 ?>
-<?php include('../template/header.html');?>
+<?php include('../template/navbar_usuario.html');?>
 
 <?php 
     include('response.php');
