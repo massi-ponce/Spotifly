@@ -17,41 +17,31 @@
 
 <?php include('../template/navbar_artista.html');?>
 
-<div class="container">
-    <div class="row">
+<div class="container mt-5">
+    <div class="row"> 
+        
         <div class="col-md-3">
-            <div class="card">
-                <div class="card-header">
-                    Agregar canción
-                </div>
-                <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data">
-                        <div class="mb-3">
-                            <label for="txtNombre">ID álbum al que pertenece la canción</label>
-                            <input type="text" class="form-control" name="txtNombre" id="txtNombre" placeholder="ID">
-                        </div>
-                        <div class="mb-3">
-                            <label for="txtNombre">Nombre de la canción</label>
-                            <input type="text" class="form-control" name="txtNombre" id="txtNombre"
-                                placeholder="Nombre">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Letra de la canción</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="txtNombre">Fecha de composición</label>
-                            <form>
-                                <input class="form-control" type="date" placeholder="Seleccionar fecha de composición">
-                            </form>
-                        </div>
-                        <div class="btn-group" role="group" aria-label="">
-                            <button type="button" name="agregar" class="btn btn-success">Agregar</button>
-                            <button type="button" name="cancelar" class="btn btn-danger">Cancelar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <h1>Ingrese datos</h1>
+                <form action="../php/insertar.php" method="POST">
+                    <div class="mb-3">
+                        <label>ID álbum al que pertenece la canción</label>
+                        <input type="number" class="form-control" name="id_cancion" id="txtNombre" placeholder="ID">
+                    </div>
+                    <div class="mb-3">
+                        <label>Nombre de la canción</label>
+                        <input type="text" class="form-control" name="nombre" id="txtid"
+                            placeholder="Nombre cancion">
+                    </div>
+                    <div class="mb-3">
+                        <label>Letra de la canción</label>
+                        <textarea class="form-control" name="letra" id="txtletra" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label>Fecha de composición</label>
+                        <input class="form-control" type="date" name="fecha_composicion">
+                    </div>
+                    <input type="submit" name="enviar" class="btn btn-primary">
+                </form>
         </div>
         <div class="col-md-2">
 
@@ -82,9 +72,7 @@
                         <td>
                             <?php echo $song['nombre_album'] ?>
                         </td>
-                        <td><button
-                                onclick="location.href='perfil_cancion.php?nombre_cancion=<?php echo $song['nombre']?>&nombre_artista=<?php echo $song['nombre_artistico']?>&fecha_composicion=<?php echo $song['fecha_composicion']?>&album=<?php echo $song['nombre_album']?>&letra=<?php echo $song['letra']?>'">Perfil</button>
-                        </td>
+                        <td>
                     </tr>
 
                     <?php endforeach;?>

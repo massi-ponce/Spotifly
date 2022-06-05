@@ -48,6 +48,7 @@
 
         if(($cantidad > 0) && (password_verify($password, $array['password']))){
             session_start();
+            $_SESSION["id_artista"] = $array['id_artista'];
             $_SESSION["email"] = $email;
             $_SESSION["nombre"] = $array['nombre'];
             $_SESSION["nombre_artistico"] = $array['nombre_artistico'];
