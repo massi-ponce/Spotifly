@@ -1,5 +1,5 @@
 <?php
-    require_once("../validar.php");
+    require_once("../php/validar.php");
 ?>
 <?php include('../template/navbar_usuario.html');?>
 
