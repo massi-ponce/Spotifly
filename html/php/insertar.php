@@ -1,24 +1,27 @@
 <?php
 require('../../db_config.php');
+session_start();
 
 if(isset($_POST['enviar'])){
-    $id_album = $_POST['id_cancion'];
+    $id_album = $_POST['id_album'];
     $nombre=$_POST['nombre'];
     $letra=$_POST['letra'];
     $fecha_composicion=$_POST['fecha_composicion'];
     $query= "INSERT INTO CANCIONES(nombre, letra, fecha_composicion) 
-    VALUES('$nombre','$letra', '$fecha_composicion')";
+    VALUES('$nombre','$letra', '$fecha_composicion') RETURNING id_cancion";
     $consulta = pg_query($dbconn, $query);
-    $array = pg_fetch_array($consulta);
+    $row = pg_fetch_row($consulta);
+    $id_cancion = $row[0];
+    $id_artista = $_SESSION['id_artista'];
+
 }
-if($query){
-    $query2 = "INSERT INTO artista_compuso_cancion(id_artista,id_cancion)
-    //Problema con el id de la cancion, buscar alguna manera de obtenerlo use array[0] pero no funciona
-    VALUES($_SESSION[id_artista] , $array[0])";
+if($consulta){
+    $query2 = "INSERT INTO artista_compuso_cancion(id_artista, id_cancion)
+    VALUES( $id_artista , $id_cancion)";
     $consulta2 = pg_query($dbconn, $query2);
     if($consulta2){
-        $query3 = "INSERT INTO album_tiene_cancion(id_album,id_cancion)
-        VALUES($id,$array[0])";
+        $query3 = "INSERT INTO album_tiene_cancion(id_album, id_cancion)
+        VALUES($id_album,$id_cancion)";
         $consulta3 = pg_query($dbconn, $query3);
         Header("Location: ../section/crud_canciones.html");
     }

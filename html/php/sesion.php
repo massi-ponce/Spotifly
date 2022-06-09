@@ -48,7 +48,10 @@
 
         if(($cantidad > 0) && (password_verify($password, $array['password']))){
             session_start();
-            $_SESSION["id_artista"] = $array['id_artista'];
+            $id_artista = pg_query_params($dbconn, 'SELECT * FROM ARTISTAS WHERE email = $1', array("$email"));
+            $objeto = pg_fetch_object($id_artista);
+            $id = ($objeto->id_artista);
+            $_SESSION["id_artista"] = $id;
             $_SESSION["email"] = $email;
             $_SESSION["nombre"] = $array['nombre'];
             $_SESSION["nombre_artistico"] = $array['nombre_artistico'];
