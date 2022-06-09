@@ -8,8 +8,9 @@
 ?>
 
 <?php include('../template/navbar_artista.html');?>
+<?php include('../../include/header.html');?>
 
-<div class="container">
+<div class="container mt-5">
     <div class="row">
         <div class="col-md-3">
             <div class="card">
@@ -17,36 +18,29 @@
                     Crear nuevo álbum
                 </div>
                 <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data">
-                        <div class="mb-3">
-                            <label for="txtNombre">ID del álbum</label>
-                            <input type="text" class="form-control" name="txtNombre" id="txtNombre" placeholder="ID">
-                        </div>
+                    <form action="../php/insertar_album.php" method="POST">
                         <div class="mb-3">
                             <label for="txtNombre">Nombre del álbum</label>
-                            <input type="text" class="form-control" name="txtNombre" id="txtNombre" placeholder="Nombre">
+                            <input type="text" class="form-control" name="nombre_album" placeholder="Nombre">
                         </div>
                         <div class="mb-3">
                             <label for="txtImagen">Imágen del álbum</label>
-                            <input type="file" class="form-control" name="txtImagen" id="txtImagen" placeholder="Imágen">
+                            <input type="text" class="form-control" name="imagen" placeholder="Link">
                         </div>
                         <div class="mb-3">
                             <label for="txtNombre">Fecha de lanzamiento</label>
-                            <form>
-                                <input class="form-control" type="date" placeholder="Seleccionar fecha de lanzamiento">
-                            </form>
+                            <input type="date" class="form-control" name="fecha_lanzamiento" placeholder="Seleccionar fecha de lanzamiento">
                         </div>
-                        <div class="btn-group" role="group" aria-label="">
-                            <button type="button" name="accion" value="Agregar" class="btn btn-success">Agregar</button>
-                            <button type="button" name="accion" value="Cancelar" class="btn btn-danger">Cancelar</button>
+                        <div>
+                            <button type="submit" name="agregar" class="btn btn-success">Agregar</button>
+                            <button type="reset" name="cancelar" class="btn btn-danger">Cancelar</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="col-md-2">
 
-        </div>
+        <div class="col-md-2"></div>
         
         <div class="col-md-7">
             <div class="container border border-white rounded shadow">
@@ -54,80 +48,41 @@
                     <table class="table table-borderless">
                         <thead class="table-dark">
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col-2">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col" style="width: 10%;">Acciones</th>
-                                
+                                <td scope="col">ID</td>
+                                <td scope="col">Nombre</td>
+                                <td scope="col">Imágen</td>
+                                <td scope="col">Fecha de lanzamiento</td>
+                                <td scope="col">Acciones</td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php
+                                require('../../db_config.php');
+
+                                $sql_statement = "SELECT * FROM album;";
+                                $result = pg_query($dbconn, $sql_statement);
+                                $variable = pg_fetch_all($result);
+
+                                foreach($variable as $clave => $valor){
+                            ?>
                             <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <button type="button border border-primary" class="btn btn-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="blue" class="bi bi-pencil" viewBox="0 0 16 16">
-                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"></path>
-                                        </svg>
-                                    </button>
-                                    <button type="button border" class="btn btn-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-trash" viewBox="0 0 16 16">
-                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
-                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
-                                        </svg>
-                                    </button>
-                                </td>
-                                
+                                <td><?php echo($valor['id_album'])?></td>
+                                <td><?php echo($valor['nombre_album'])?></td>
+                                <td><img alt="caratulas" src="<?php echo($valor['imagen'])?>" width="67" height="67"></td>
+                                <td><?php echo($valor['fecha_lanzamiento'])?></td>
+                                <td class="text-success"><a href="../php/editar_album_formulario.php?id_album=<?php echo $valor['id_album']?>"><i class="bi bi-pencil-square"></i></a></td> 
+                                <td class="text-danger"><a href="../php/borrar_album.php?id_album=<?php echo $valor['id_album'] ?>"><i class="bi bi-trash"></i></a></td>
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td>
-                                    <button type="button" class="btn btn-sm ">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="blue" class="bi bi-pencil" viewBox="0 0 16 16">
-                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"></path>
-                                        </svg>
-                                    </button>
-                                    <button type="button" class="btn btn-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-trash" viewBox="0 0 16 16">
-                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
-                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
-                                        </svg>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                                <td>
-                                    <button type="button" class="btn btn-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="blue" class="bi bi-pencil" viewBox="0 0 16 16">
-                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"></path>
-                                        </svg>
-                                    </button>
-                                    <button type="button" class="btn btn-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-trash" viewBox="0 0 16 16">
-                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
-                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
-                                        </svg>
-                                    </button>
-                                </td>
-                            </tr>
+                            <?php
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
             </div>
-            
         </div>
-
     </div>
 </div>
 
