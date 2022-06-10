@@ -7,7 +7,6 @@
     }
 ?>
 
-
 <?php 
     require('../../db_config.php');
     include('response.php');
@@ -61,7 +60,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($songs as $key => $song) :?>
+                    <?php foreach($songs as $key => $song) :
+                            if($_SESSION["id_artista"] == $song['id_artista']){ ?>
                     <tr>
                         <td>
                             <?php echo $song['nombre'] ?>
@@ -75,7 +75,7 @@
                         <td>
                     </tr>
 
-                    <?php endforeach;?>
+                    <?php }endforeach;?>
                 </tbody>
             </table>
         </div>

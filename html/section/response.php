@@ -10,7 +10,7 @@ class cancion{
 	}
 	
 	public function getCancion() {
-		$sql = "SELECT canciones.id_cancion, canciones.nombre, artistas.nombre_artistico, album.nombre_album, canciones.fecha_composicion, canciones.letra
+		$sql = "SELECT canciones.id_cancion, canciones.nombre, artistas.nombre_artistico, album.nombre_album, canciones.fecha_composicion, canciones.letra, artistas.id_artista
             FROM 
             canciones
             INNER JOIN artista_compuso_cancion ON canciones.id_cancion = artista_compuso_cancion.id_cancion
