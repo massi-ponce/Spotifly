@@ -4,10 +4,10 @@ require('../../db_config.php');
 session_start();
 
 if(isset($_POST['agregar'])){
-    $id_album = $_POST['id_album'];
-    $nombre=$_POST['nombre'];
-    $letra=$_POST['letra'];
-    $fecha_composicion=$_POST['fecha_composicion'];
+    $id_album = filter_var($_POST['id_album'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $nombre=filter_var($_POST['nombre'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $letra=filter_var($_POST["letra"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $fecha_composicion= filter_var($_POST['fecha_composicion'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $query= "INSERT INTO CANCIONES(nombre, letra, fecha_composicion) 
     VALUES('$nombre','$letra', '$fecha_composicion') RETURNING id_cancion";
     $consulta = pg_query($dbconn, $query);

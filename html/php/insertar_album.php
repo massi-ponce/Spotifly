@@ -1,9 +1,9 @@
 <?php
     require('../../db_config.php');
 
-    $nombre_album=$_POST["nombre_album"];
-    $imagen=$_POST["imagen"];
-    $fecha_lanzamiento=$_POST["fecha_lanzamiento"];
+    $nombre_album=filter_var($_POST["nombre_album"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $imagen=filter_var($_POST["imagen"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $fecha_lanzamiento=filter_var($_POST["fecha_lanzamiento"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
     $sql_statement = "INSERT INTO album(nombre_album, imagen, fecha_lanzamiento) VALUES('$nombre_album', '$imagen', '$fecha_lanzamiento');";
     
