@@ -1,4 +1,5 @@
 <?php
+
 require('../../db_config.php');
 session_start();
 
@@ -23,12 +24,10 @@ if($consulta){
         $query3 = "INSERT INTO album_tiene_cancion(id_album, id_cancion)
         VALUES($id_album,$id_cancion)";
         $consulta3 = pg_query($dbconn, $query3);
-        echo "<script> alert('Canción creada correctamente');window.location='../section/crud_canciones.html'</script>"; 
+        echo "<script> alert('Canción creada correctamente');window.location='../section/crud_canciones.html'</script>";
     }
 }else {
     echo "<script> alert('ERROR: Problemas al crear la canción');window.location='../section/crud_canciones.html'</script>";
 }
-
-
 
 ?>
