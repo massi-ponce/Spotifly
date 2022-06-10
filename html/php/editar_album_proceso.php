@@ -6,7 +6,7 @@
     $imagen=$_POST["imagen"];
     $fecha_lanzamiento=$_POST["fecha_lanzamiento"];
 
-    $sql_statement = "UPDATE album SET nombre_album = $nombre_album, imagen = $imagen, fecha_lanzamiento = $fecha_lanzamiento WHERE id_album = $id_album;";
+    $sql_statement = "UPDATE album SET nombre_album = '$nombre_album', imagen = '$imagen', fecha_lanzamiento = '$fecha_lanzamiento' WHERE id_album = '$id_album';";
     
     if($result = pg_query($dbconn, $sql_statement)){
         echo "<script> alert('Álbum editado correctamente');window.location='../section/crud_albumes.html'</script>";

@@ -38,7 +38,7 @@
                         <div>
                             <input type="hidden" name="id" value="<?php echo($_GET['id_album'])?>">
                             <button type="submit" name="agregar" class="btn btn-success">Confirmar</button>
-                            <button type="reset" name="cancelar" class="btn btn-danger">Cancelar</button>
+                            <a class="btn btn-danger" href="../section/crud_albumes.html" role="button">Cancelar</a>
                         </div>
                     </form>
                 </div>

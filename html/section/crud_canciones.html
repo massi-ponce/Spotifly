@@ -7,82 +7,88 @@
     }
 ?>
 
-<?php 
-    require('../../db_config.php');
-    include('response.php');
-    $newObj = new cancion();
-    $songs = $newObj->getCancion();
-?>
-
 <?php include('../template/navbar_artista.html');?>
+<?php include('../../include/header.html');?>
 
 <div class="container mt-5">
-    <div class="row"> 
-        
+    <div class="row">
         <div class="col-md-3">
-            <h1>Ingrese datos</h1>
-                <form action="../php/insertar.php" method="POST">
-                    <div class="mb-3">
-                        <label>ID álbum al que pertenece la canción</label>
-                        <input type="number" class="form-control" name="id_album" id="txtNombre" placeholder="ID">
-                    </div>
-                    <div class="mb-3">
-                        <label>Nombre de la canción</label>
-                        <input type="text" class="form-control" name="nombre" id="txtid"
-                            placeholder="Nombre cancion">
-                    </div>
-                    <div class="mb-3">
-                        <label>Letra de la canción</label>
-                        <textarea class="form-control" name="letra" id="txtletra" rows="3"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label>Fecha de composición</label>
-                        <input class="form-control" type="date" name="fecha_composicion">
-                    </div>
-                    <input type="submit" name="enviar" class="btn btn-primary">
-                </form>
-        </div>
-        <div class="col-md-2">
-
-        </div>
-
-        <div class="col-sm-6" style="padding-top:50px;">
-            <div class="well">
-                <h2>Tabla de Canciones</h2>
+            <div class="card">
+                <div class="card-header">
+                    Crear nueva canción
+                </div>
+                <div class="card-body">
+                    <form action="../php/insertar_cancion.php" method="POST">
+                        <div class="mb-3">
+                            <label>ID álbum al que pertenece la canción</label>
+                            <input type="number" class="form-control" name="id_album" placeholder="ID">
+                        </div>
+                        <div class="mb-3">
+                            <label>Nombre de la canción</label>
+                            <input type="text" class="form-control" name="nombre" placeholder="Nombre cancion">
+                        </div>
+                        <div class="mb-3">
+                            <label>Letra de la canción</label>
+                            <textarea class="form-control" name="letra" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label>Fecha de composición</label>
+                            <input class="form-control" type="date" name="fecha_composicion">
+                        </div>
+                        <div>
+                            <button type="submit" name="agregar" class="btn btn-success">Agregar</button>
+                            <button type="reset" name="cancelar" class="btn btn-danger">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <table id="songs_grid" class="table" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Artista(s)</th>
-                        <th>Álbum</th>
+        </div>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach($songs as $key => $song) :
-                            if($_SESSION["id_artista"] == $song['id_artista']){ ?>
-                    <tr>
-                        <td>
-                            <?php echo $song['nombre'] ?>
-                        </td>
-                        <td>
-                            <?php echo $song['nombre_artistico'] ?>
-                        </td>
-                        <td>
-                            <?php echo $song['nombre_album'] ?>
-                        </td>
-                        <td>
-                    </tr>
+        <div class="col-md-2"></div>
+        
+        <div class="col-md-7">
+            <div class="container border border-white rounded shadow">
+                <div class="row justify-content-md-center"> 
+                    <table class="table table-borderless">
+                        <thead class="table-dark">
+                            <tr>
+                                <td scope="col">ID</td>
+                                <td scope="col">Nombre</td>
+                                <td scope="col">Letra</td>
+                                <td scope="col">Fecha de composición</td>
+                                <td scope="col">Acciones</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                require('../../db_config.php');
 
-                    <?php }endforeach;?>
-                </tbody>
-            </table>
+                                $sql_statement = "SELECT * FROM canciones ORDER BY id_cancion;";
+                                $result = pg_query($dbconn, $sql_statement);
+                                $variable = pg_fetch_all($result);
+
+                                foreach($variable as $clave => $valor){
+                            ?>
+                            <tr>
+                                <td><?php echo($valor['id_cancion'])?></td>
+                                <td><?php echo($valor['nombre'])?></td>
+                                <td><?php echo($valor['letra'])?></td>
+                                <td><?php echo($valor['fecha_composicion'])?></td>
+                                <td><a class="text-success" href="../php/editar_cancion_formulario.php?id_cancion=<?php echo $valor['id_cancion']?>"><i class="bi bi-pencil-square"></i></a></td> 
+                                <td><a class="text-danger" href="../php/borrar_cancion.php?id_cancion=<?php echo $valor['id_cancion'] ?>"><i class="bi bi-trash"></i></a></td>
+                            </tr>
+                            <?php
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
+</div>
 
 
-
-    </body>
-
-    </html>
+<?php include('../template/footer.html');?>

@@ -61,7 +61,7 @@
                             <?php
                                 require('../../db_config.php');
 
-                                $sql_statement = "SELECT * FROM album;";
+                                $sql_statement = "SELECT * FROM album ORDER BY id_album;";
                                 $result = pg_query($dbconn, $sql_statement);
                                 $variable = pg_fetch_all($result);
 
@@ -72,8 +72,8 @@
                                 <td><?php echo($valor['nombre_album'])?></td>
                                 <td><img alt="caratulas" src="<?php echo($valor['imagen'])?>" width="67" height="67"></td>
                                 <td><?php echo($valor['fecha_lanzamiento'])?></td>
-                                <td class="text-success"><a href="../php/editar_album_formulario.php?id_album=<?php echo $valor['id_album']?>"><i class="bi bi-pencil-square"></i></a></td> 
-                                <td class="text-danger"><a href="../php/borrar_album.php?id_album=<?php echo $valor['id_album'] ?>"><i class="bi bi-trash"></i></a></td>
+                                <td><a class="text-success" href="../php/editar_album_formulario.php?id_album=<?php echo $valor['id_album']?>"><i class="bi bi-pencil-square"></i></a></td> 
+                                <td><a class="text-danger" href="../php/borrar_album.php?id_album=<?php echo $valor['id_album'] ?>"><i class="bi bi-trash"></i></a></td>
                             </tr>
                             <?php
                             }
