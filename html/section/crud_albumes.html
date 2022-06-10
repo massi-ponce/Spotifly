@@ -61,18 +61,11 @@
                             <?php
                                 require('../../db_config.php');
 
-                                $sql_statement = "SELECT album.id_album, album.nombre_album, album.imagen, album.fecha_lanzamiento, artistas.id_artista
-                                FROM 
-                                canciones
-                                INNER JOIN artista_compuso_cancion ON canciones.id_cancion = artista_compuso_cancion.id_cancion
-                                INNER JOIN artistas ON artistas.id_artista = artista_compuso_cancion.id_artista
-                                INNER JOIN album_tiene_cancion ON canciones.id_cancion = album_tiene_cancion.id_cancion
-                                INNER JOIN album ON album.id_album = album_tiene_cancion.id_album;";
+                                $sql_statement = "SELECT * FROM album ORDER BY id_album;";
                                 $result = pg_query($dbconn, $sql_statement);
                                 $variable = pg_fetch_all($result);
 
-                                foreach($variable as $clave => $valor) : 
-                                    if($_SESSION['id_artista'] == $valor['id_artista']){
+                                foreach($variable as $clave => $valor){
                             ?>
                             <tr>
                                 <td><?php echo($valor['id_album'])?></td>
@@ -82,7 +75,9 @@
                                 <td><a class="text-success" href="../php/editar_album_formulario.php?id_album=<?php echo $valor['id_album']?>"><i class="bi bi-pencil-square"></i></a></td> 
                                 <td><a class="text-danger" href="../php/borrar_album.php?id_album=<?php echo $valor['id_album'] ?>"><i class="bi bi-trash"></i></a></td>
                             </tr>
-                            <?php }endforeach;?>
+                            <?php
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -93,6 +88,3 @@
 
 
 <?php include('../template/footer.html');?>
-
-
-
