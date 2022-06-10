@@ -3,11 +3,6 @@
 ?>
 <?php include('../template/navbar_usuario.html');?>
 
-<?php 
-    include('response.php');
-    $newObj = new cancion();
-    $songs = $newObj->getCancion();
-?>
 
 <DOCTYPE html>   
 <html>
@@ -27,7 +22,20 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <?php foreach($songs as $key => $song) :?>
+                        <?php
+                            require('../../db_config.php');
+                            $sql_statement = "SELECT canciones.id_cancion, canciones.nombre, artistas.nombre_artistico, album.nombre_album, canciones.fecha_composicion, canciones.letra, artistas.id_artista
+                            FROM 
+                            canciones
+                            INNER JOIN artista_compuso_cancion ON canciones.id_cancion = artista_compuso_cancion.id_cancion
+                            INNER JOIN artistas ON artistas.id_artista = artista_compuso_cancion.id_artista
+                            INNER JOIN album_tiene_cancion ON canciones.id_cancion = album_tiene_cancion.id_cancion
+                            INNER JOIN album ON album.id_album = album_tiene_cancion.id_album;";
+                            $result = pg_query($dbconn, $sql_statement);
+                            $songs = pg_fetch_all($result);
+
+                            foreach($songs as $clave => $song) : 
+                        ?>
                       <tr>
                           <td><?php echo $song['nombre'] ?></td>
                           <td><?php echo $song['nombre_artistico'] ?></td>
